@@ -1,4 +1,4 @@
-#include "../mws.h"
+#include "../server/server.h"
 int main(int argc, char** argv){
     int connfd;
     sockaddr_in servaddr;

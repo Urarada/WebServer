@@ -1,4 +1,4 @@
-#include "./mws.h"
+#include "./server.h"
 void sighand_CHIL(int signo){
     pid_t pid;
     int stat;
