@@ -1,33 +1,11 @@
 #include "./http.h"
-http::http(int connfd)
-{
+http::http(int connfd){
 
 }
 
-http::~http()
-{
+http::~http(){
 }
 
-req_method::req_method(/* args */)
-{
-}
+int http::run(){
 
-req_method::~req_method()
-{
-}
-
-req_head::req_head(/* args */)
-{
-}
-
-req_head::~req_head()
-{
-}
-
-resp_head::resp_head(/* args */)
-{
-}
-
-resp_head::~resp_head()
-{
 }

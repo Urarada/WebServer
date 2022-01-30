@@ -17,7 +17,7 @@
 
 typedef void (*sighandler_t)(int);
 
-const int port = 6657; //不规范? //端口未来将被弃用
+const int port = 80; //shall I use const int = as substitution of #define ?
 const int maxline = 64;
 const int buffsize = 64;
 #endif

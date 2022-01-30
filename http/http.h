@@ -1,3 +1,6 @@
+#include <vector>
+#include <string>
+
 //Once http request handle and respond.
 //Not a whole http connetion handle.
 class http{
@@ -11,17 +14,7 @@ private:
         WRITE_HEAD,
         WRITE_BODY
     } state;
-    req_head req_head_local;
-    resp_head resp_head_local;
-public:
-    http(int connfd);
-    ~http();
-
-    int run();
-};
-
-class req_method{
-private:
+    //true_state = state*10000 + req_method*1000 + req_head*100 + resp_head
     enum req_method_t{
         HEAD,
         POST,
@@ -31,17 +24,8 @@ private:
         OPTIONS,
         TRACE,
         PATCH
-    };
-public:
-    req_method(/* args */);
-    ~req_method();
-};
-
-
-
-
-class req_head{
-private:
+    } req_method;
+    
     enum req_head_t{//41
         Accept,
         AcceptCharset,
@@ -85,14 +69,14 @@ private:
         Via,
         Warning
     };
-    bool req_head_text[Warning+1];
-public:
-    req_head(/* args */);
-    ~req_head();
-};
+    const int req_head_count;
+    bool req_head[req_head_t::Warning+1];
+    //but how to store the head context?
+    bool req_head_need[Warning+1];
+    // req_head_final = req_head & req_head_need
+    // std::vector<std::string *> req_head_context(count(req_head_need));
+    //and need a fast enough string matching algorithm to match head
 
-class resp_head{
-private:
     enum resp_head_t{//30
         AcceptRanges,
         Age,
@@ -125,9 +109,12 @@ private:
         Warning,
         WwwAuthenticate
     };
-    bool resp_head_text[WwwAuthenticate+1];
+    bool resp_head[resp_head_t::WwwAuthenticate+1];//Warning+1];//
+    const int resp_head_count;
+    bool resp_head_need[resp_head_t::WwwAuthenticate+1];
 public:
-    resp_head(/* args */);
-    ~resp_head();
-};
+    http(int connfd);
+    ~http();
 
+    int run();
+};
