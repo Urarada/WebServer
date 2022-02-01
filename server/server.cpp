@@ -1,4 +1,5 @@
 #include "./server.h"
+#include "../http/http.h"
 void sighand_CHIL(int signo){
     pid_t pid;
     int stat;
@@ -9,7 +10,7 @@ void sighand_CHIL(int signo){
 int main(int argc, char** argv){
     int listenfd, connfd;
     sockaddr_in servaddr;
-    char buff[buffsize];
+    char* buff = new char [buffsize];
 
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
     bzero(&servaddr, sizeof(servaddr));
@@ -29,16 +30,13 @@ int main(int argc, char** argv){
         std::cout << "c" << std::endl;
         if(!fork()){
             close(listenfd);
+            http http_obj;
             bzero(buff, buffsize);
             recv(connfd, buff, buffsize, 0);
-            std::cout << buff << std::endl;
-            send(connfd, buff, buffsize, 0);
-            
-            bzero(buff, buffsize);
-            recv(connfd, buff, buffsize, 0);
-            std::cout << buff << std::endl;
-            send(connfd, buff, buffsize, 0);
-            close(connfd);
+            std::cout<< buff << std::endl;
+            http_obj.read(buff, buffsize);
+            send(connfd, http_obj.buff.c_str(), http_obj.buff.size(), 0);
+            delete(buff);
             return 0;
         }
         close(connfd);

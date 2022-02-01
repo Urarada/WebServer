@@ -18,6 +18,6 @@
 typedef void (*sighandler_t)(int);
 
 const int port = 80; //shall I use const int = as substitution of #define ?
-const int maxline = 64;
-const int buffsize = 64;
+const int maxline = 1024;
+const int buffsize = 1024;
 #endif
