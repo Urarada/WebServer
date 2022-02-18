@@ -16,3 +16,5 @@ serv
 server.o
 run.sh
 http.o
+test/test_valgrind.log
+test/tThreads

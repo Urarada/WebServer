@@ -1,5 +1,5 @@
 #include "./http.h"
-http::http():req_head_context(http::req_head_count, nullptr){
+Http::Http():req_head_context(Http::req_head_count, nullptr){
     bzero(req_head, req_head_count);
         // for (int i = 0; i < req_head_count; i++)        {
         //     switch (i){
@@ -14,7 +14,7 @@ http::http():req_head_context(http::req_head_count, nullptr){
     bzero(resp_head, resp_head_count);
 }
 
-http::~http(){
+Http::~Http(){
     for (int i = 0; i < req_head_context.size(); i++){
         if (req_head_context[i] != nullptr)        {
             delete(req_head_context[i]);
@@ -22,7 +22,7 @@ http::~http(){
     }
 }
 
-int http::read(const char* msg, int size){
+int Http::read(const char* msg, int size){
     sleep(1);
     buff.clear();
     buff += "HTTP/1.1 200 OK\r\n";

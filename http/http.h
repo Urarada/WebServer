@@ -10,7 +10,7 @@
 // #include <type_traits>
 //Once http request handle and respond.
 //Not a whole http connetion handle.
-class http{
+class Http{
 private:
     //int connfd;
     enum class state_t: int{
@@ -127,8 +127,8 @@ private:
     static const bool resp_head_need[resp_head_count];
 
 public:
-    http();
-    ~http();
+    Http();
+    ~Http();
     std::string buff;// should be friend server:: in future
     int read(const char* msg, int size);// read request and write to buff 
 };

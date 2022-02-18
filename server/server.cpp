@@ -30,7 +30,7 @@ int main(int argc, char** argv){
         std::cout << "c" << std::endl;
         if(!fork()){
             close(listenfd);
-            http http_obj;
+            Http http_obj;
             bzero(buff, buffsize);
             recv(connfd, buff, buffsize, 0);
             std::cout<< buff << std::endl;
